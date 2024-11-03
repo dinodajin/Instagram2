@@ -13,8 +13,8 @@ class InstagramApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // FirebaseAuth로부터 현재 로그인한 사용자 정보를 가져옵니다.
 
-    // 만약 사용자가 로그인하지 않은 상태라면 `로그인 페이지`를 보여줍니다.
-    // 만약 사용자가 로그인한 상태라면 `홈 페이지`를 보여줍니다.
+    // 만약 사용자가 로그인하지 않은 상태라면 `LoginPage`를 보여줍니다.
+    // 만약 사용자가 로그인한 상태라면 `FeedPage`를 보여줍니다.
 
     return MaterialApp(
       title: 'Instagram',
