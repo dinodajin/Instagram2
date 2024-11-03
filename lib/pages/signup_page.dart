@@ -1,38 +1,49 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram/pages/signup_page.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
 
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nickNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFF1F2F3),
+      ),
       backgroundColor: const Color(0xFFF1F2F3),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: [
-              const Spacer(),
               Image.asset(
                 'assets/logo.png',
                 width: 76,
                 height: 76,
               ),
-              Container(height: 70),
+              Container(height: 26),
+              Text(
+                '친구들의 사진과 동영상을 보려면\n가입하세요.',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Container(height: 46),
               _buildEmailField(),
               Container(height: 16),
-              _buildPasswordField(),
+              _buildNickNameField(),
               Container(height: 16),
-              _buildLoginButton(context),
-              Container(height: 56),
-              const Spacer(),
+              _buildPasswordField(),
+              Container(height: 26),
               _buildSignUpButton(context),
-              Container(height: 40),
+              Container(height: 26),
             ],
           ),
         ),
@@ -46,6 +57,29 @@ class LoginPage extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: '이메일',
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),
+          borderSide: const BorderSide(
+            width: 1.0,
+            color: Colors.black26,
+          ),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+      ),
+    );
+  }
+
+  Widget _buildNickNameField() {
+    return TextField(
+      controller: _nickNameController,
+      keyboardType: TextInputType.name,
+      decoration: InputDecoration(
+        hintText: '닉네임',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide.none,
@@ -86,11 +120,11 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLoginButton(BuildContext context) {
+  Widget _buildSignUpButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // 로그인 처리
-        _signIn(context);
+        // 회원가입 처리
+        _signUp(context);
       },
       child: Container(
         width: double.infinity,
@@ -101,7 +135,7 @@ class LoginPage extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: const Text(
-          '로그인',
+          '회원 가입',
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,
@@ -112,52 +146,16 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSignUpButton(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // 회원가입 페이지로 이동
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return SignUpPage();
-            },
-          ),
-        );
-      },
-      child: Container(
-        width: double.infinity,
-        height: 56,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            width: 1,
-            color: Colors.black26,
-          ),
-        ),
-        alignment: Alignment.center,
-        child: const Text(
-          '회원 가입',
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 16,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> _signIn(BuildContext context) async {
-    final String email = _emailController.text;
-    final String password = _passwordController.text;
-
+  Future<void> _signUp(BuildContext context) async {
     try {
-      // FirebaseAuth 인증 처리
+      // 회원가입 처리
+
+      // 닉네임 업데이트
 
       // 로그인 성공 시 피드 화면으로 이동
     } catch (e) {
-      // 에러 처리
+      // 오류 처리
+      print(e);
     }
   }
 }

@@ -1,5 +1,5 @@
-package com.lgdxschool.instagram.instagram
+package com.lgdxschool.instagram
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: FlutterActivity()
+class MainActivity : FlutterActivity()
