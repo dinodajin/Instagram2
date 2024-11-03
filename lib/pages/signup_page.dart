@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/pages/feed_page.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -148,11 +149,22 @@ class SignUpPage extends StatelessWidget {
 
   Future<void> _signUp(BuildContext context) async {
     try {
-      // 회원가입 처리
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
 
-      // 닉네임 업데이트
+      // 과제1: 회원가입 처리
+
+      // 과제2: 닉네임 업데이트
 
       // 로그인 성공 시 피드 화면으로 이동
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return FeedPage();
+          },
+        ),
+      );
     } catch (e) {
       // 오류 처리
       print(e);
