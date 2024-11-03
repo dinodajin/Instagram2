@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
                 width: 76,
                 height: 76,
               ),
-              Container(height: 100),
+              Container(height: 70),
               _buildEmailField(),
               Container(height: 16),
               _buildPasswordField(),
