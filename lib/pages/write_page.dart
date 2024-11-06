@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -242,6 +243,14 @@ class _WritePageState extends State<WritePage> {
       'imageUrl': imageUrl,
     };
     await FirebaseFirestore.instance.collection('posts').add(newPost);
+
+    // FirebaseAnlaytics에 로그 전송
+     await FirebaseAnalytics.instance.logEvent(
+      name: 'write',
+      parameters: {
+        'number_of_photos': _pickedImages.length,
+      },
+    );
 
     // TextField 초기화
     _textController.clear();

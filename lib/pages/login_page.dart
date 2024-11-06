@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/pages/feed_page.dart';
@@ -174,7 +175,25 @@ class _LoginPageState extends State<LoginPage> {
         email: email,
         password: password,
       );
+
       print(credential.user?.displayName);
+
+      // FirebaseAbalytics로 로그인 이벤트를 전송
+      // 로그인 성공 시 login 이벤트 기록
+      // await FirebaseAnalytics.instance.logEvent(
+      //   name: 'login',
+      //   parameters: {
+      //     'email': email,
+      //   },
+      // );
+
+      FirebaseAnalytics.instance.logLogin(
+        loginMethod: 'email',
+        parameters: {
+          'email': email,
+          'username': credential.user?.displayName ?? "",
+        },
+      );
 
       // 로그인 성공 시 피드 화면으로 이동
       Navigator.pushReplacement(
