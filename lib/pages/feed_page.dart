@@ -24,8 +24,12 @@ class _FeedPageState extends State<FeedPage> {
   void initState() {
     super.initState();
 
-    _loadPosts();
-    _loadActiveUsers();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadPosts();
+      _loadActiveUsers();
+    // Remote Config로 부터 공지사항이 있는지 체크를 하고 만약 있으면 팝업 노출
+      _loadNotice();
+    });
   }
 
   @override
@@ -210,6 +214,45 @@ class _FeedPageState extends State<FeedPage> {
             event.snapshot.value as List<dynamic>,
           );
         });
+      },
+    );
+  }
+
+  // 공지사항을 RemoteConfig로부터 받아와서 보여줍니다.
+  Future<void> _loadNotice() async {
+    String notice = "";    
+    // TODO : RemoteConfig에서 notice 값을 받아와서 다이얼로그로 보여줍니다.
+    notice = FirebaseRemoteConfig.instance.getString('notice');
+
+    // TODO : notice 값이 비어있으면 아래 코드를 실행하지 않고 바로 종료
+    if (notice.isEmpty) return;
+
+    // TODO : notice 값이 비어있지 않으면 아래 코드를 실행
+    // if (notice.isNotEmpty) -> 가독성 안좋음
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: const Text('공지사항'),
+          content: Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: Text(notice),
+          ),
+          actions: [
+            CupertinoButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                '확인',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
       },
     );
   }
